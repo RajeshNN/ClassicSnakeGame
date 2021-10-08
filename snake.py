@@ -1,12 +1,17 @@
 class body_cell:
-    def __init__(self, x, y, next):
-        self.x = x
-        self.y = y
+    def __init__(self, a, b):
+        self.node = [a, b]
         self.next = None
 
 class snake:
     def __init__(self):
-        self.snake_coor = [[20,40], [21,40], [22,40], [22,41], [22,42]]
+        self.s = body_cell(20, 40)
+        self.s.next = body_cell(21, 40)
+        self.s.next.next = body_cell(22, 40)
+        self.s.next.next.next = body_cell(21, 41)
+        self.s.next.next.next.next = body_cell(21, 42)
+        self.head = self.s.next.next.next.next
+        self.tail = self.s
         self.snake_coor_dict= {'20,40':[20,40], '21,40':[21,40],
                                '22,40':[22,40], '22,41':[22,41],
                                '22,42':[22,42]}
@@ -16,7 +21,7 @@ class snake:
         self.body_chewed = 0
 
     def move_snake(self):
-        x = self.snake_coor[0].copy()
+        x = self.head.copy()
         if self.head_dir==b'w' or self.head_dir=='w':
             x[0]-=1
             if x[0]<0:

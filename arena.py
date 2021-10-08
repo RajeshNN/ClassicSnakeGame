@@ -106,7 +106,7 @@ class Snake_tkinter:
             if a.terminate:
                 self.cancel = True
                 #self.var.clear()
-            self.after_id = self.w.after(200, lambda: self.game_instance(a))
+            self.after_id = self.w.after(30, lambda: self.game_instance(a))
         else:
             self.w.after_cancel(self.after_id)
             self.GO = self.c.create_text(400, 170, text = 'GAME OVER!!!', font=('Helvetica 25 bold'))

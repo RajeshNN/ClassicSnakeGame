@@ -22,7 +22,7 @@ class arena:
                 elif self.s.head_dir == b'a' or self.s.head_dir == b'd':
                     if x in [b'w', b's']:
                         self.s.head_dir = x
-            if self.s.snake_coor[0]==[self.f.p, self.f.q]:
+            if self.s.head.node==[self.f.p, self.f.q]:
                 self.s.length += 1
                 self.s.eaten = 1
                 self.scoring.scores[-1] += 10
@@ -90,10 +90,10 @@ class Snake_tkinter:
     def game_instance(self, a):
         if(not self.cancel):
             self.w.bind('<Key>', lambda i : a.edit_head_dir(i))
-            buffer = a.s.snake_coor.copy()
+            buffer = a.s.length.copy()
             a.update()
             # if snake eats food
-            if len(buffer)<a.s.length:
+            if buffer<a.s.length:
                 self.s2.configure(text = a.scoring.scores[-1])
                 self.s4.configure(text = max(a.scoring.scores))
                 self.c.delete(self.food)

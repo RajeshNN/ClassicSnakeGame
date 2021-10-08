@@ -1,3 +1,9 @@
+class body_cell:
+    def __init__(self, x, y, next):
+        self.x = x
+        self.y = y
+        self.next = None
+
 class snake:
     def __init__(self):
         self.snake_coor = [[20,40], [21,40], [22,40], [22,41], [22,42]]

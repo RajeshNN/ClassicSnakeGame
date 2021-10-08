@@ -5,13 +5,12 @@ class body_cell:
 
 class snake:
     def __init__(self):
-        self.s = body_cell(20, 40)
-        self.s.next = body_cell(21, 40)
-        self.s.next.next = body_cell(22, 40)
-        self.s.next.next.next = body_cell(21, 41)
-        self.s.next.next.next.next = body_cell(21, 42)
-        self.head = self.s.next.next.next.next
-        self.tail = self.s
+        self.tail = body_cell(20, 40)
+        self.tail.next = body_cell(21, 40)
+        self.tail.next.next = body_cell(22, 40)
+        self.tail.next.next.next = body_cell(21, 41)
+        self.tail.next.next.next.next = body_cell(21, 42)
+        self.head = self.tail.next.next.next.next
         self.snake_coor_dict= {'20,40':[20,40], '21,40':[21,40],
                                '22,40':[22,40], '22,41':[22,41],
                                '22,42':[22,42]}
@@ -42,8 +41,9 @@ class snake:
             if self.snake_coor_dict[str(x[0])+','+str(x[1])]:
                 self.body_chewed = 1
         except:
-            self.snake_coor.insert(0, x)
+            self.head.next = body_cell(x[0], x[1])
+            self.head = self.head.next
             self.snake_coor_dict[str(x[0])+','+str(x[1])] = x
             if not self.eaten:
-                e = self.snake_coor.pop()
-                del self.snake_coor_dict[str(e[0])+','+str(e[1])]
+                del self.snake_coor_dict[str(self.tail.node[0])+','+str(self.tail.node[1])]
+                self.tail = self.tail.next

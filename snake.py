@@ -8,8 +8,8 @@ class snake:
         self.tail = body_cell(20, 40)
         self.tail.next = body_cell(21, 40)
         self.tail.next.next = body_cell(22, 40)
-        self.tail.next.next.next = body_cell(21, 41)
-        self.tail.next.next.next.next = body_cell(21, 42)
+        self.tail.next.next.next = body_cell(22, 41)
+        self.tail.next.next.next.next = body_cell(22, 42)
         self.head = self.tail.next.next.next.next
         self.snake_coor_dict= {'20,40':[20,40], '21,40':[21,40],
                                '22,40':[22,40], '22,41':[22,41],

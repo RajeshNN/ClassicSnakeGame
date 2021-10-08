@@ -33,4 +33,3 @@ if args.verbose:
 else:
     app = Snake_tkinter()
     tk.mainloop()
-    

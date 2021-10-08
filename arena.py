@@ -81,7 +81,7 @@ class Snake_tkinter:
         self.btn1.grid(row = 0, column = 4, ipadx = 10)
         self.btn2 = tk.Button(self.c2, bg = 'SpringGreen2', text = 'New Game', font=('Helvetica 10 bold'), width = 10, height = 1, command = lambda: self.new_game())
         self.btn2.grid(row = 0, column = 5, ipadx = 10)
-        self.var = []
+        self.var = {}
         self.food = self.c.create_oval(0,0,1,1)
         self.cancel = True
         self.after_id = 0
@@ -91,18 +91,18 @@ class Snake_tkinter:
             self.w.bind('<Key>', lambda i : a.edit_head_dir(i))
             buffer = a.s.length.copy()
             a.update()
-            # if snake eats food
-            if buffer<a.s.length:
+            
+            # move the snake
+            temp = str(a.s.head.node[0])+','+str(a.s.head.node[1])
+            self.var[temp] = self.c.create_rectangle(a.s.snake_coor_dict[temp][1]*10, a.s.snake_coor_dict[temp][0]*10, a.s.snake_coor_dict[temp][1]*10+10, a.s.snake_coor_dict[temp][0]*10+10, fill='blue', outline='blue')
+            
+            if buffer<a.s.length:  # if snake eats food
                 self.s2.configure(text = a.scoring.scores[-1])
                 self.s4.configure(text = max(a.scoring.scores))
                 self.c.delete(self.food)
                 self.food = self.c.create_oval(a.f.q*10, a.f.p*10, a.f.q*10 + 10, a.f.p*10 + 10, fill='red')
-                buffer.append(a.s.snake_coor[-1])
-                self.var.append(self.c.create_rectangle(a.s.snake_coor[-1][1]*10, a.s.snake_coor[-1][0]*10, a.s.snake_coor[-1][1]*10+10, a.s.snake_coor[-1][0]*10+10, fill='blue', outline='blue'))
-            # move the snake
-            for i in range(a.s.length):
-                self.c.move(self.var[i], (a.s.snake_coor[i][1]-buffer[i][1])*10, (a.s.snake_coor[i][0]-buffer[i][0])*10)
-                self.w.update()
+            else:  # if snake does not eat food
+                self.c.delete(self.var[str(a.s.tail.node[0])+','+str(a.s.tail.node[1])])
             if a.terminate:
                 self.cancel = True
                 #self.var.clear()
@@ -117,8 +117,8 @@ class Snake_tkinter:
         self.food = self.c.create_oval(a.f.q*10, a.f.p*10, a.f.q*10 + 10, a.f.p*10 + 10, fill='red')
 
         # initialize snake on canvas
-        for i in range(a.s.length):
-            self.var.append(self.c.create_rectangle(a.s.snake_coor[i][1]*10, a.s.snake_coor[i][0]*10, a.s.snake_coor[i][1]*10+10, a.s.snake_coor[i][0]*10+10, fill='blue', outline='blue'))
+        for i in a.s.snake_coor_dict:
+            self.var[i] = self.c.create_rectangle(a.s.snake_coor_dict[i][1]*10, a.s.snake_coor_dict[i][0]*10, a.s.snake_coor_dict[i][1]*10+10, a.s.snake_coor_dict[i][0]*10+10, fill='blue', outline='blue')
 
     def new_game(self):
         self.cancel = False

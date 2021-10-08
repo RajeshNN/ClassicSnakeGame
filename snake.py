@@ -20,7 +20,7 @@ class snake:
         self.body_chewed = 0
 
     def move_snake(self):
-        x = self.head.copy()
+        x = self.head.node.copy()
         if self.head_dir==b'w' or self.head_dir=='w':
             x[0]-=1
             if x[0]<0:

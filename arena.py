@@ -61,7 +61,6 @@ class arena:
             print()
         print('\t\tSCORE: ', self.scoring.scores[-1], '\t\tHIGH SCORE: ', max(self.scoring.scores))
 
-
 class Snake_tkinter:
     def __init__(self):
         self.w = tk.Tk(className='Classic Snake Game')

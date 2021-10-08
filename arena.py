@@ -11,6 +11,7 @@ class arena:
         self.f = food()
         self.scoring = score()
         self.terminate = 0
+        self.removed_tail = None
 
     def update(self):
         if not self.s.body_chewed:
@@ -27,7 +28,7 @@ class arena:
                 self.s.eaten = 1
                 self.scoring.scores[-1] += 10
                 self.f=food()
-            self.s.move_snake()
+            self.removed_tail = self.s.move_snake()
             self.s.eaten = 0
             return self
         else:
@@ -89,9 +90,8 @@ class Snake_tkinter:
     def game_instance(self, a):
         if(not self.cancel):
             self.w.bind('<Key>', lambda i : a.edit_head_dir(i))
-            buffer = a.s.length.copy()
+            buffer = a.s.length
             a.update()
-            
             # move the snake
             temp = str(a.s.head.node[0])+','+str(a.s.head.node[1])
             self.var[temp] = self.c.create_rectangle(a.s.snake_coor_dict[temp][1]*10, a.s.snake_coor_dict[temp][0]*10, a.s.snake_coor_dict[temp][1]*10+10, a.s.snake_coor_dict[temp][0]*10+10, fill='blue', outline='blue')
@@ -102,11 +102,11 @@ class Snake_tkinter:
                 self.c.delete(self.food)
                 self.food = self.c.create_oval(a.f.q*10, a.f.p*10, a.f.q*10 + 10, a.f.p*10 + 10, fill='red')
             else:  # if snake does not eat food
-                self.c.delete(self.var[str(a.s.tail.node[0])+','+str(a.s.tail.node[1])])
+                self.c.delete(self.var[str(a.removed_tail[0])+','+str(a.removed_tail[1])])
             if a.terminate:
                 self.cancel = True
                 #self.var.clear()
-            self.after_id = self.w.after(20, lambda: self.game_instance(a))
+            self.after_id = self.w.after(200, lambda: self.game_instance(a))
         else:
             self.w.after_cancel(self.after_id)
             self.GO = self.c.create_text(400, 170, text = 'GAME OVER!!!', font=('Helvetica 25 bold'))

@@ -26,10 +26,13 @@ def play_in_CLI():
                 n1 = False
             else:
                 print('\nWrong Input!')
+def main():
+    args = parser.parse_args()
+    if args.verbose:
+        play_in_CLI()
+    else:
+        app = Snake_tkinter()
+        tk.mainloop()
 
-args = parser.parse_args()
-if args.verbose:
-    play_in_CLI()
-else:
-    app = Snake_tkinter()
-    tk.mainloop()
+if __name__ == "__main__":
+    main()

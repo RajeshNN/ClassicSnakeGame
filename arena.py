@@ -64,7 +64,7 @@ class arena:
 
 class Snake_tkinter:
     def __init__(self):
-        self.w = tk.Tk(className='Classic Snake Game')
+        self.w = tk.Tk(className=' Classic Snake Game')
         self.c = tk.Canvas(self.w, height=310, width=810, bg='SpringGreen', highlightbackground='black')
         self.c.grid(columnspan = 1, rowspan = 1, sticky = 'n')
         self.title = self.c.create_text(420, 150, text = 'Classic Snake Game!', fill = 'Blue', font=('Helvetica 50 bold'))
